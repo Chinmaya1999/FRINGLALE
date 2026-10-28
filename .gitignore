@@ -10,3 +10,10 @@ uploads
 # raw source videos stay out of git (100 MB limit)
 WhatsApp Video*.mp4
 *.mov
+
+# secrets — never commit
+*.pem
+*.key
+.env.*
+!.env.example
+deploy/.env

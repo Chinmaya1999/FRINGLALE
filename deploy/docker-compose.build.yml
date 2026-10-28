@@ -1,0 +1,10 @@
+# Override for building on the host itself (no registry): docker compose -f docker-compose.yml -f docker-compose.build.yml up -d --build
+services:
+  server:
+    build: ./src/server
+  web:
+    build:
+      context: ./src/web
+      args:
+        API_URL: http://server:4000
+        NEXT_PUBLIC_SITE_URL: http://13.127.179.117

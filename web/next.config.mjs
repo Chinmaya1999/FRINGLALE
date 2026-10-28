@@ -3,6 +3,7 @@ export default {
   reactStrictMode: true,
   poweredByHeader: false,
   devIndicators: false,
+  output: 'standalone',
   async rewrites() {
     return [
       { source: '/api/:path*', destination: `${API}/api/:path*` },

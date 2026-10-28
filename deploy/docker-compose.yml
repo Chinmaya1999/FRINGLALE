@@ -1,0 +1,35 @@
+# Production stack on the EC2 host: Caddy (80/443) → Next.js web → Express API → MongoDB Atlas.
+services:
+  server:
+    image: ${DOCKERHUB_USERNAME}/fringlale-server:${TAG:-latest}
+    restart: unless-stopped
+    env_file: .env.server
+    volumes:
+      - uploads:/app/uploads
+    expose: ["4000"]
+
+  web:
+    image: ${DOCKERHUB_USERNAME}/fringlale-web:${TAG:-latest}
+    restart: unless-stopped
+    environment:
+      API_URL: http://server:4000
+    depends_on:
+      server: { condition: service_healthy }
+    expose: ["3000"]
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on: [web]
+
+volumes:
+  uploads:
+  caddy_data:
+  caddy_config:

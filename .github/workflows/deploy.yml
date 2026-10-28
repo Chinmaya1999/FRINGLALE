@@ -1,0 +1,107 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            server/package-lock.json
+            web/package-lock.json
+      - run: npm ci
+        working-directory: server
+      - run: npm test
+        working-directory: server
+      - run: npm ci
+        working-directory: web
+      - run: npm test
+        working-directory: web
+
+  build:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push API image
+        uses: docker/build-push-action@v6
+        with:
+          context: server
+          push: true
+          platforms: linux/amd64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/fringlale-server:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/fringlale-server:${{ github.sha }}
+          cache-from: type=gha,scope=server
+          cache-to: type=gha,mode=max,scope=server
+      - name: Build and push web image
+        uses: docker/build-push-action@v6
+        with:
+          context: web
+          push: true
+          platforms: linux/amd64
+          build-args: |
+            API_URL=http://server:4000
+            NEXT_PUBLIC_SITE_URL=${{ vars.SITE_URL || format('http://{0}', secrets.EC2_HOST) }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/fringlale-web:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/fringlale-web:${{ github.sha }}
+          cache-from: type=gha,scope=web
+          cache-to: type=gha,mode=max,scope=web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure SSH
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
+      - name: Upload compose files
+        run: |
+          scp -i ~/.ssh/id_deploy deploy/docker-compose.yml deploy/Caddyfile ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}:~/fringlale/
+      - name: Pull and restart
+        run: |
+          ssh -i ~/.ssh/id_deploy ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} bash -s <<'REMOTE'
+          set -euo pipefail
+          cd ~/fringlale
+          echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" > .env
+          echo "TAG=${{ github.sha }}" >> .env
+          echo "SITE_ADDRESS=${{ vars.SITE_ADDRESS || ':80' }}" >> .env
+          echo '${{ secrets.DOCKERHUB_TOKEN }}' | docker login -u '${{ secrets.DOCKERHUB_USERNAME }}' --password-stdin
+          docker compose pull
+          docker compose up -d --remove-orphans
+          docker image prune -f
+          REMOTE
+      - name: Health check and warm-up
+        run: |
+          for i in $(seq 1 30); do
+            if curl -fsS "http://${{ secrets.EC2_HOST }}/api/health" >/dev/null; then ok=1; break; fi
+            sleep 5
+          done
+          [ "${ok:-0}" = 1 ] || { echo "health check failed"; exit 1; }
+          # pages are prerendered at image build time (no API there); two hits make Next regenerate them with live data
+          for p in / /shop / /shop; do curl -fsS -o /dev/null "http://${{ secrets.EC2_HOST }}$p" || true; sleep 2; done

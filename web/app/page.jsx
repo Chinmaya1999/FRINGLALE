@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { sfetch } from '@/lib/server';
 import DesignCard, { COLLECTION_LABELS, ProductArt } from '@/components/DesignCard';
-import HeroHolo from '@/components/HeroHolo';
+import HeroStage from '@/components/HeroStage';
 import ScrollStage from '@/components/motion/ScrollStage';
 import { Reveal, Lines, Parallax, CountUp } from '@/components/motion/Reveal';
 import { inr } from '@/lib/format';
@@ -28,41 +28,8 @@ export default async function Home() {
   const byCol = Object.fromEntries(COLLECTIONS.map(([k]) => [k, all?.items?.find((d) => d.series === k)]));
   return (
     <div className="paper-page">
-      {/* ── Opening: split stage — headline and actions left, draggable 3D ring in a gold halo right ───── */}
-      <section className="relative isolate overflow-hidden bg-[radial-gradient(ellipse_at_75%_45%,#5a1a2c_0%,#3A0F1B_45%,#1c070d_100%)] text-[#f3eadb]" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
-        <div className="paper-grain pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay" />
-        {/* halo rings behind the jewel */}
-        <div className="pointer-events-none absolute right-[-8%] top-[4%] z-0 hidden aspect-square w-[62%] max-w-[52rem] md:block" aria-hidden="true">
-          <div className="absolute inset-0 rounded-full border border-gold/30" />
-          <div className="absolute inset-[9%] rounded-full border border-gold/20" />
-          <div className="absolute inset-[18%] rounded-full bg-[radial-gradient(circle,rgba(228,207,152,.16),transparent_70%)]" />
-        </div>
-        {/* the ring */}
-        <div className="absolute inset-x-0 top-0 z-10 h-[55%] cursor-grab active:cursor-grabbing md:inset-y-0 md:left-[42%] md:right-0 md:h-auto"><HeroHolo mode="gold" /></div>
-
-        <div className="pointer-events-none relative z-20 mx-auto flex max-w-7xl flex-col justify-between px-4 py-8" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
-          <div className="flex items-start justify-between">
-            <p className="mono text-white/75">Fringlale Atelier<br />Rootage Group · India</p>
-            <p className="mono hidden text-right text-white/75 md:block">Plate I — live 3D<br />Celestia Halo Ring</p>
-          </div>
-          <div className="mt-[48vw] md:mt-0 md:max-w-[46%]">
-            <p className="mono flex items-center gap-3 text-gold"><span className="inline-block h-px w-10 bg-gold" />My choice, my jewel</p>
-            <h1 className="serif mt-4 leading-[0.9] tracking-tight">
-              <span className="block text-[clamp(3.5rem,8.5vw,8rem)] font-light text-transparent [-webkit-text-stroke:1.5px_rgba(228,207,152,.8)]">Make your</span>
-              <span className="block text-[clamp(4rem,10vw,9.5rem)] font-light italic text-gold">design</span>
-            </h1>
-            <p className="mt-6 max-w-md text-white/85">Shape a ring, pendant or bangle in 3D, watch the price build line by line, and approve the model before a single gram is cast.</p>
-            <div className="pointer-events-auto mt-7 flex flex-wrap items-center gap-x-7 gap-y-3">
-              <Link href="/design" className="btn btn-gold">Open the Design Studio</Link>
-              <Link href="/shop" className="link-u text-sm font-semibold">Browse the catalogue →</Link>
-            </div>
-          </div>
-          <div className="mt-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-3 border-t border-gold/25 pt-5">
-            {rate && <dl className="flex gap-6 md:gap-10"><dt className="sr-only">Today’s gold rate</dt>{['24K', '22K', '18K'].map((k) => <div key={k}><dt className="mono text-white/75">{k} / g</dt><dd className="serif text-xl tabular-nums md:text-2xl">{inr(rate.rates[k])}</dd></div>)}</dl>}
-            <p className="mono flex items-center gap-2 whitespace-nowrap text-gold"><span className="inline-block h-px w-8 bg-gold" />Drag to turn</p>
-          </div>
-        </div>
-      </section>
+      {/* ── Opening: full-bleed stage, live metal and piece switcher ───── */}
+      <HeroStage rate={rate} />
 
       {/* ── Hallmark strip ────────────────────────────────────── */}
       <div className="border-y border-[#3A0F1B]/30">

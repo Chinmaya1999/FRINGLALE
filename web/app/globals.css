@@ -25,7 +25,7 @@ h1, h2, h3, .serif { font-family: var(--font-serif); }
 .btn-gold { background: var(--color-gold); color: var(--color-navy-deep); }
 .btn-gold:hover:not(:disabled) { background: #d6b25c; }
 .btn-navy { background: var(--color-navy); color: white; }
-.btn-navy:hover:not(:disabled) { background: #16306e; }
+.btn-navy:hover:not(:disabled) { background: #5a1a2c; }
 .btn-ghost { border: 1px solid rgba(201,162,74,.6); color: inherit; }
 .btn-ghost:hover:not(:disabled) { background: rgba(201,162,74,.12); }
 .input { width: 100%; border: 1px solid #cdbfa6; background: #fbf6ec; border-radius: 2px; padding: .65rem .85rem; font-size: .95rem; }
