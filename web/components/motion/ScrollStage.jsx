@@ -13,7 +13,7 @@ import { useMotion } from './MotionProvider';
 gsap.registerPlugin(ScrollTrigger);
 const JewelScene = dynamic(() => import('@/components/studio/JewelScene'), { ssr: false });
 
-const CHAPTERS = [
+const RING_CHAPTERS = [
   ['01', 'Shape it', 'Every curve starts as your choice — halo, solitaire, eternity.'],
   ['02', 'Choose the metal', 'Yellow, rose, white gold or platinum — the ring changes as you scroll.'],
   ['03', 'Take it apart', 'See the band, the head and the stone as separate parts.'],
@@ -22,7 +22,8 @@ const CHAPTERS = [
 const METALS = [[0, 'yellow-18K', '18K yellow gold'], [0.33, 'rose-18K', '18K rose gold'], [0.62, 'platinum-950', 'Platinum 950']];
 
 /** Pinned, scroll-scrubbed 3D showcase: the ring spins, the camera flies in, metal changes, then it explodes into parts. */
-export default function ScrollStage({ slug = 'celestia-halo-ring' }) {
+export default function ScrollStage({ slug = 'celestia-halo-ring', label = 'Celestia Halo Ring', chapters = RING_CHAPTERS, tone = 'bg-[#260A12]' }) {
+  const CHAPTERS = chapters;
   const wrap = useRef(null);
   const progress = useRef(0);
   const catalog = useCatalog();
@@ -62,7 +63,7 @@ export default function ScrollStage({ slug = 'celestia-halo-ring' }) {
   const staticMode = reduced || gl === false;
 
   return (
-    <section ref={wrap} className="relative bg-[#260A12] text-[#f3eadb]" style={{ height: staticMode ? 'auto' : '460vh' }} aria-label="Scroll through the Celestia Halo Ring">
+    <section ref={wrap} className={`relative ${tone} text-[#f3eadb]`} style={{ height: staticMode ? 'auto' : '460vh' }} aria-label={`Scroll through the ${label}`}>
       <div className={staticMode ? 'mx-auto grid max-w-6xl gap-10 px-4 py-24 md:grid-cols-2' : 'sticky top-[104px] h-[calc(100vh-104px)] overflow-hidden'}>
         <div className={staticMode ? 'h-[60vh]' : 'absolute inset-0'}>
           {items.length > 0 && gl !== null && <JewelScene items={items} tier={tier === 'high' ? 'medium' : tier} exploded={exploded} highlight={null} showMeasure={false} autoRotate={false} hologram={false} reduced={reduced} preset="angle" scrollRef={staticMode ? undefined : progress} />}

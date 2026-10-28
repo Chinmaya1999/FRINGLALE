@@ -28,36 +28,38 @@ export default async function Home() {
   const byCol = Object.fromEntries(COLLECTIONS.map(([k]) => [k, all?.items?.find((d) => d.series === k)]));
   return (
     <div className="paper-page">
-      {/* ── Opening: full-screen stage, giant type behind a draggable 3D ring ───── */}
-      <section className="relative isolate overflow-hidden bg-[radial-gradient(ellipse_at_50%_60%,#5a1a2c_0%,#3A0F1B_45%,#1c070d_100%)] text-[#f3eadb]" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
+      {/* ── Opening: split stage — headline and actions left, draggable 3D ring in a gold halo right ───── */}
+      <section className="relative isolate overflow-hidden bg-[radial-gradient(ellipse_at_75%_45%,#5a1a2c_0%,#3A0F1B_45%,#1c070d_100%)] text-[#f3eadb]" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
         <div className="paper-grain pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay" />
-        {/* giant words sit BEHIND the ring */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-0 flex h-[60%] flex-col items-center justify-center select-none md:inset-0 md:h-auto" aria-hidden="true">
-          <span className="serif block text-[clamp(4.5rem,19vw,19rem)] font-light leading-[0.82] tracking-tight text-transparent [-webkit-text-stroke:1.5px_rgba(228,207,152,.55)]">MAKE MY</span>
-          <span className="serif block text-[clamp(4.5rem,19vw,19rem)] font-light italic leading-[0.82] tracking-tight text-gold/90">design</span>
+        {/* halo rings behind the jewel */}
+        <div className="pointer-events-none absolute right-[-8%] top-[4%] z-0 hidden aspect-square w-[62%] max-w-[52rem] md:block" aria-hidden="true">
+          <div className="absolute inset-0 rounded-full border border-gold/30" />
+          <div className="absolute inset-[9%] rounded-full border border-gold/20" />
+          <div className="absolute inset-[18%] rounded-full bg-[radial-gradient(circle,rgba(228,207,152,.16),transparent_70%)]" />
         </div>
-        <h1 className="sr-only">Make my design — Fringlale, My Choice, My Jewel</h1>
         {/* the ring */}
-        <div className="absolute inset-x-0 top-0 z-10 h-[60%] cursor-grab active:cursor-grabbing md:inset-0 md:h-auto"><HeroHolo mode="gold" /></div>
+        <div className="absolute inset-x-0 top-0 z-10 h-[55%] cursor-grab active:cursor-grabbing md:inset-y-0 md:left-[42%] md:right-0 md:h-auto"><HeroHolo mode="gold" /></div>
 
-        <div className="pointer-events-none relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-between px-4 py-8" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
+        <div className="pointer-events-none relative z-20 mx-auto flex max-w-7xl flex-col justify-between px-4 py-8" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
           <div className="flex items-start justify-between">
-            <p className="mono text-white/60">Fringlale Atelier<br />Rootage Group · India</p>
-            <p className="mono hidden text-right text-white/60 md:block">Plate I — live 3D<br />Celestia Halo Ring</p>
+            <p className="mono text-white/75">Fringlale Atelier<br />Rootage Group · India</p>
+            <p className="mono hidden text-right text-white/75 md:block">Plate I — live 3D<br />Celestia Halo Ring</p>
           </div>
-          <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-8 md:grid-cols-[1fr_auto]">
-            <div className="max-w-md">
-              <p className="serif text-3xl italic leading-tight md:text-4xl [text-shadow:0_2px_18px_#1c070d]">My choice, <span className="text-gold">my jewel.</span></p>
-              <p className="mt-3 text-white/70">Shape a ring, pendant or bangle in 3D, watch the price build line by line, and approve the model before a single gram is cast.</p>
-              <div className="pointer-events-auto mt-6 flex flex-wrap items-center gap-x-7 gap-y-3">
-                <Link href="/design" className="btn btn-gold">Open the Design Studio</Link>
-                <Link href="/shop" className="link-u text-sm font-semibold">Browse the catalogue →</Link>
-              </div>
+          <div className="mt-[48vw] md:mt-0 md:max-w-[46%]">
+            <p className="mono flex items-center gap-3 text-gold"><span className="inline-block h-px w-10 bg-gold" />My choice, my jewel</p>
+            <h1 className="serif mt-4 leading-[0.9] tracking-tight">
+              <span className="block text-[clamp(3.5rem,8.5vw,8rem)] font-light text-transparent [-webkit-text-stroke:1.5px_rgba(228,207,152,.8)]">Make your</span>
+              <span className="block text-[clamp(4rem,10vw,9.5rem)] font-light italic text-gold">design</span>
+            </h1>
+            <p className="mt-6 max-w-md text-white/85">Shape a ring, pendant or bangle in 3D, watch the price build line by line, and approve the model before a single gram is cast.</p>
+            <div className="pointer-events-auto mt-7 flex flex-wrap items-center gap-x-7 gap-y-3">
+              <Link href="/design" className="btn btn-gold">Open the Design Studio</Link>
+              <Link href="/shop" className="link-u text-sm font-semibold">Browse the catalogue →</Link>
             </div>
-            <div className="flex flex-wrap items-end gap-x-8 gap-y-3 md:flex-col md:items-end md:gap-3">
-              {rate && <dl className="flex gap-6 md:gap-8">{['24K', '22K', '18K'].map((k) => <div key={k}><dt className="mono text-white/50">{k} / g</dt><dd className="serif text-xl tabular-nums md:text-2xl">{inr(rate.rates[k])}</dd></div>)}</dl>}
-              <p className="mono flex items-center gap-2 whitespace-nowrap text-gold"><span className="inline-block h-px w-8 bg-gold" />Drag to turn</p>
-            </div>
+          </div>
+          <div className="mt-10 flex flex-wrap items-end justify-between gap-x-8 gap-y-3 border-t border-gold/25 pt-5">
+            {rate && <dl className="flex gap-6 md:gap-10"><dt className="sr-only">Today’s gold rate</dt>{['24K', '22K', '18K'].map((k) => <div key={k}><dt className="mono text-white/75">{k} / g</dt><dd className="serif text-xl tabular-nums md:text-2xl">{inr(rate.rates[k])}</dd></div>)}</dl>}
+            <p className="mono flex items-center gap-2 whitespace-nowrap text-gold"><span className="inline-block h-px w-8 bg-gold" />Drag to turn</p>
           </div>
         </div>
       </section>
@@ -69,7 +71,12 @@ export default async function Home() {
         </ul>
       </div>
 
-      <ScrollStage />
+      <ScrollStage slug="lumiere-halo-pendant" label="Lumière Halo Pendant" chapters={[
+        ['01', 'Hang it', 'A halo pendant that sits just below the collarbone, on a chain made for it.'],
+        ['02', 'Choose the metal', 'Yellow, rose, white gold or platinum — the pendant changes as you scroll.'],
+        ['03', 'Take it apart', 'See the chain, the bail, the halo and the centre stone as separate parts.'],
+        ['04', 'Make it yours', 'Open the studio and the same pendant is yours to edit, priced live.'],
+      ]} />
 
       {/* ── Chapters: sticky title, scrolling story ────────────── */}
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-24 lg:grid-cols-[0.8fr_1.2fr]">
