@@ -1,5 +1,6 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import items from '@/lib/gallery.json';
 
 const CATS = [['all', 'All'], ['ring', 'Rings'], ['necklace', 'Necklaces'], ['earring', 'Earrings'], ['bangle', 'Bracelets'], ['pendant', 'Pendants'], ['bridal', 'Gold markets']];
@@ -8,6 +9,14 @@ const CATS = [['all', 'All'], ['ring', 'Rings'], ['necklace', 'Necklaces'], ['ea
 export default function WorldGallery() {
   const [cat, setCat] = useState('all');
   const [open, setOpen] = useState(null);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => e.key === 'Escape' && setOpen(null);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => { document.body.style.overflow = prev; window.removeEventListener('keydown', onKey); };
+  }, [open]);
   const list = items.filter((i) => cat === 'all' || i.cat === cat);
   return (
     <section className="maroon-band py-20" aria-label="Jewellery from around the world">
@@ -24,13 +33,16 @@ export default function WorldGallery() {
             </figure>))}
         </div>
       </div>
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true" aria-label={open.title} onClick={() => setOpen(null)}>
-          <figure className="max-h-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-            <img src={open.src} alt={open.title} className="max-h-[80vh] rounded-xl" />
-            <figcaption className="mt-3 text-sm text-white/70">{open.title} — {open.artist} · <a className="underline" href={open.page} target="_blank" rel="noreferrer">{open.license}, Wikimedia Commons</a> <button className="btn btn-ghost ml-3 !py-1 text-xs text-white" onClick={() => setOpen(null)}>Close</button></figcaption>
+      {open && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/90 p-4" role="dialog" aria-modal="true" aria-label={open.title} onClick={() => setOpen(null)}>
+          <figure className="mx-auto flex max-h-full w-fit max-w-4xl flex-col items-center" onClick={(e) => e.stopPropagation()}>
+            <img src={open.src} alt={open.title} className="max-h-[75vh] w-auto max-w-full rounded-xl object-contain" />
+            <figcaption className="mt-3 flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm text-white/70">
+              <span className="min-w-0">{open.title}{open.artist ? ` — ${open.artist}` : ''} · <a className="underline" href={open.page} target="_blank" rel="noreferrer">{open.license}, Wikimedia Commons</a></span>
+              <button className="btn btn-ghost shrink-0 !py-1 text-xs text-white" onClick={() => setOpen(null)}>Close</button>
+            </figcaption>
           </figure>
-        </div>)}
+        </div>, document.body)}
     </section>
   );
 }

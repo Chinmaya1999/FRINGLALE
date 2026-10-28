@@ -2,6 +2,7 @@ const API = process.env.API_URL || 'http://localhost:4000';
 export default {
   reactStrictMode: true,
   poweredByHeader: false,
+  devIndicators: false,
   async rewrites() {
     return [
       { source: '/api/:path*', destination: `${API}/api/:path*` },
