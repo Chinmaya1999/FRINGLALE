@@ -1,0 +1,10 @@
+{
+  "name": "fringlale",
+  "private": true,
+  "scripts": {
+    "seed": "npm --prefix server run seed",
+    "dev:api": "npm --prefix server run dev",
+    "dev:web": "npm --prefix web run dev",
+    "test": "npm --prefix server test && npm --prefix web test"
+  }
+}
