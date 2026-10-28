@@ -180,10 +180,10 @@ function GlbPiece(props) {
 function ProcPiece(props) {
   const { item } = props;
   const root = useMemo(() => {
-    const g = buildProcedural(item.procedural, { shape: item.shape });
+    const g = buildProcedural(item.procedural, { shape: item.shape, weightG: item.weightG });
     g.userData.parametric = true;
     return g;
-  }, [item.procedural, item.shape]);
+  }, [item.procedural, item.shape, item.weightG]);
   // Geometries from stoneGeometry() are cached and shared; only free the ones we own.
   useEffect(() => () => root.traverse((o) => { if (o.isMesh && !o.geometry.userData?.shared) o.geometry.dispose?.(); }), [root]);
   return <PieceBody {...props} root={root} />;

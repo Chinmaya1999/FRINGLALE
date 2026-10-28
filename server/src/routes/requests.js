@@ -19,7 +19,7 @@ r.get('/consultations/slots', wrap(async (req, res) => {
 r.use(['/custom-requests', '/consultations'], requireAuth);
 
 r.post('/custom-requests', validate(z.object({
-  category: z.enum(['ring', 'pendant', 'earring', 'necklace', 'bangle', 'other']),
+  category: z.enum(['ring', 'pendant', 'earring', 'necklace', 'bangle', 'bar', 'coin', 'gold-item', 'other']),
   description: z.string().trim().min(10).max(3000),
   budgetMin: z.number().min(0).optional(), budgetMax: z.number().min(0).optional(),
   files: z.array(z.string().regex(/^\/uploads\/[\w.]+$/)).max(5).default([]),
@@ -36,6 +36,7 @@ r.post('/consultations', validate(z.object({
   request: z.string().optional(),
 })), wrap(async (req, res) => {
   if (new Date(req.body.date + 'T23:59:59+05:30') < new Date()) throw new HttpError(422, 'Choose a future date');
+  if (req.body.request && !(await CustomRequest.exists({ _id: req.body.request, user: req.user._id }))) throw new HttpError(404, 'Request not found');
   const taken = await Consultation.countDocuments({ date: req.body.date, slot: req.body.slot, status: { $ne: 'cancelled' } });
   if (taken >= CAPACITY_PER_SLOT) throw new HttpError(409, 'That slot was just taken. Please pick another.');
   res.status(201).json({ consultation: await Consultation.create({ ...req.body, user: req.user._id }) });

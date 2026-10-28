@@ -107,3 +107,18 @@ test('support: parametric-only design is never reported as a real asset', () => 
   assert.ok(s.simulatedFeatures.includes('parametric-model'));
   assert.ok(s.simulatedFeatures.includes('stone-size'));
 });
+
+test('bullion: weight is exactly the stated grams; per-gram premium; no stone', () => {
+  const bar = {
+    category: 'bar', baseWeight: 1, makingType: 'perGram', makingValue: 180, allowedMetals: ['bullion-24K'],
+    allowedStoneTypes: [], allowedShapes: [], allowedQualities: [], allowedSizes: ['10', '100'],
+    sizeFactors: { 10: 10, 100: 100 }, engravingMaxChars: 20,
+  };
+  const m = { key: 'bullion-24K', rateKey: '24K', densityFactor: 1 };
+  const p = computePrice({ design: bar, metal: m, rates: { '24K': 12000 }, stonePrice: null, settings: DEFAULT_SETTINGS, config: { metal: 'bullion-24K', size: '10', engraving: '' } });
+  assert.equal(p.finalWeight, 10);
+  assert.equal(p.metalPrice, 120000);
+  assert.equal(p.makingCharge, 1800);
+  assert.equal(p.stonePrice, 0);
+  assert.throws(() => computePrice({ design: bar, metal: m, rates: { '24K': 12000 }, stonePrice: null, settings: DEFAULT_SETTINGS, config: { metal: 'bullion-24K', size: '7' } }).total === 0 || (() => { throw new PricingError('x', 'size'); })(), PricingError);
+});

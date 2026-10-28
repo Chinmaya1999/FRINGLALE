@@ -12,7 +12,7 @@ const listQuery = z.object({
   metal: z.string().optional(),
   stone: z.string().optional(),
   occasion: z.string().optional(),
-  collection: z.enum(['bridal', 'red-carpet', 'heritage', 'everyday', 'signature']).optional(),
+  collection: z.enum(['bridal', 'red-carpet', 'heritage', 'everyday', 'signature', 'bullion']).optional(),
   q: z.string().max(60).optional(),
   featured: z.enum(['true', 'false']).optional(),
   sort: z.enum(['newest', 'weight_asc', 'weight_desc']).default('newest'),
@@ -30,10 +30,10 @@ r.get('/designs', validate(listQuery, 'query'), wrap(async (req, res) => {
   const q = req.query;
   const f = { isActive: true };
   if (q.category) f.category = q.category;
-  if (q.metal) f.allowedMetals = new RegExp(`^${q.metal.replace(/[^\w-]/g, '')}`);
+  if (q.metal) { const m = q.metal.replace(/[^\w-]/g, ''); f.allowedMetals = new RegExp(m === 'yellow' ? '^(yellow|bullion-2)' : `^(bullion-)?${m}`); }
   if (q.stone) f.allowedStoneTypes = q.stone;
   if (q.occasion) f.occasions = q.occasion;
-  if (q.collection) f.collection = q.collection;
+  if (q.collection) f.series = q.collection;
   if (q.featured) f.featured = q.featured === 'true';
   if (q.q) f.name = new RegExp(q.q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
   const sort = { newest: { createdAt: -1 }, weight_asc: { baseWeight: 1 }, weight_desc: { baseWeight: -1 } }[q.sort];

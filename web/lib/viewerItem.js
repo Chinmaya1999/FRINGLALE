@@ -24,6 +24,7 @@ export function buildViewerItem({ design, config, support, metals, stones, label
     metal, stone,
     shape: config.shape || 'round',
     carat: config.carat || 0.5,
+    weightG: ['bar', 'coin'].includes(design.category) ? Number(config.size) || 10 : null,
     engraving: config.engraving || '',
     components: support?.components || [],
     explodedView: !!support?.explodedView,

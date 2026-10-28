@@ -68,6 +68,7 @@ r.post('/reviews', requireAuth, validate(z.object({
 })), wrap(async (req, res) => {
   const o = await Order.findOne({ _id: req.body.order, user: req.user._id, stage: 'delivered' });
   if (!o) throw new HttpError(403, 'You can review an order once it is delivered');
+  if (await Review.exists({ order: o._id, user: req.user._id })) throw new HttpError(409, 'You have already reviewed this order');
   res.status(201).json({ review: await Review.create({ ...req.body, user: req.user._id, design: o.items[0]?.design }) });
 }));
 

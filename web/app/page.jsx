@@ -14,6 +14,7 @@ const CHAPTERS = [
   ['V', 'Your jewel', 'BIS hallmark with a HUID, certified stones, insured delivery — and an exchange promise for life.'],
 ];
 const COLLECTIONS = [
+  ['bullion', 'For the vault', 'Gold and silver bars and coins, engraved your way.'],
   ['bridal', 'For the vows', 'Halos, three-stones and eternity bands.'],
   ['red-carpet', 'For the spotlight', 'Statement pieces inspired by award-night glamour.'],
   ['heritage', 'For the family', 'Timeless gold, cast the way our craftsmen always have.'],
@@ -23,30 +24,41 @@ const COLLECTIONS = [
 const PRICE = [['Metal', 'weight × today’s gold rate'], ['Making', 'a stated % or ₹ per gram'], ['Stone', 'carat × price per carat'], ['Extras', 'engraving, box, insurance'], ['GST', '3% on the subtotal']];
 
 export default async function Home() {
-  const [feat, rate, testi, all] = await Promise.all([sfetch('/designs?featured=true&limit=8'), sfetch('/gold-rates/today', 300), sfetch('/cms/testimonials', 300), sfetch('/designs?limit=48')]);
-  const byCol = Object.fromEntries(COLLECTIONS.map(([k]) => [k, all?.items?.find((d) => d.collection === k)]));
+  const [feat, rate, testi, all, bull] = await Promise.all([sfetch('/designs?featured=true&limit=8'), sfetch('/gold-rates/today', 300), sfetch('/cms/testimonials', 300), sfetch('/designs?limit=48'), sfetch('/designs?collection=bullion&limit=12')]);
+  const byCol = Object.fromEntries(COLLECTIONS.map(([k]) => [k, all?.items?.find((d) => d.series === k)]));
   return (
     <div className="paper-page">
-      {/* ── Opening ───────────────────────────────────────────── */}
-      <section className="paper-grain relative overflow-hidden">
-        <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-12 lg:grid-cols-[1.15fr_0.85fr] lg:pt-16">
-          <div>
-            <p className="mono text-[#3A0F1B]/70">Rootage Group · Fringlale Atelier · Est. in gold</p>
-            <Lines as="h1" className="mt-5 text-[clamp(3.4rem,9vw,8rem)] font-light leading-[0.92] text-[#3A0F1B]" lines={['Make my', <em key="d" className="text-gold">design.</em>]} />
-            <p className="mt-7 max-w-lg text-lg text-[#3A0F1B]/75">Make My Jewel — My Choice, My Jewel. Shape your own ring, pendant or bangle in 3D, watch the price build line by line, and approve the model before a single gram is cast.</p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
-              <Link href="/design" className="btn btn-navy">Open the Design Studio</Link>
-              <Link href="/shop" className="link-u text-sm font-semibold text-[#3A0F1B]">Browse the catalogue →</Link>
-            </div>
-            {rate && (
-              <dl className="mt-12 grid max-w-md grid-cols-3 border-y border-[#3A0F1B]/25 py-4 text-[#3A0F1B]">
-                {['24K', '22K', '18K'].map((k) => <div key={k} className="px-1"><dt className="mono text-[#3A0F1B]/55">{k} / g</dt><dd className="serif text-2xl tabular-nums">{inr(rate.rates[k])}</dd></div>)}
-              </dl>)}
+      {/* ── Opening: full-screen stage, giant type behind a draggable 3D ring ───── */}
+      <section className="relative isolate overflow-hidden bg-[radial-gradient(ellipse_at_50%_60%,#5a1a2c_0%,#3A0F1B_45%,#1c070d_100%)] text-[#f3eadb]" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
+        <div className="paper-grain pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay" />
+        {/* giant words sit BEHIND the ring */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-0 flex h-[60%] flex-col items-center justify-center select-none md:inset-0 md:h-auto" aria-hidden="true">
+          <span className="serif block text-[clamp(4.5rem,19vw,19rem)] font-light leading-[0.82] tracking-tight text-transparent [-webkit-text-stroke:1.5px_rgba(228,207,152,.55)]">MAKE MY</span>
+          <span className="serif block text-[clamp(4.5rem,19vw,19rem)] font-light italic leading-[0.82] tracking-tight text-gold/90">design</span>
+        </div>
+        <h1 className="sr-only">Make my design — Fringlale, My Choice, My Jewel</h1>
+        {/* the ring */}
+        <div className="absolute inset-x-0 top-0 z-10 h-[60%] cursor-grab active:cursor-grabbing md:inset-0 md:h-auto"><HeroHolo mode="gold" /></div>
+
+        <div className="pointer-events-none relative z-20 mx-auto flex h-full max-w-7xl flex-col justify-between px-4 py-8" style={{ minHeight: 'max(calc(100svh - 104px), 40rem)' }}>
+          <div className="flex items-start justify-between">
+            <p className="mono text-white/60">Fringlale Atelier<br />Rootage Group · India</p>
+            <p className="mono hidden text-right text-white/60 md:block">Plate I — live 3D<br />Celestia Halo Ring</p>
           </div>
-          <figure className="relative mx-auto w-full max-w-md">
-            <Parallax speed={0.04}><div className="arch aspect-[3/4] bg-[radial-gradient(ellipse_at_50%_55%,#5a1a2c,#260A12_70%)] ring-1 ring-[#3A0F1B]"><HeroHolo /></div></Parallax>
-            <figcaption className="mono mt-3 flex justify-between text-[#3A0F1B]/65"><span>Plate I — live 3D</span><span>Celestia Halo Ring</span></figcaption>
-          </figure>
+          <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-8 md:grid-cols-[1fr_auto]">
+            <div className="max-w-md">
+              <p className="serif text-3xl italic leading-tight md:text-4xl [text-shadow:0_2px_18px_#1c070d]">My choice, <span className="text-gold">my jewel.</span></p>
+              <p className="mt-3 text-white/70">Shape a ring, pendant or bangle in 3D, watch the price build line by line, and approve the model before a single gram is cast.</p>
+              <div className="pointer-events-auto mt-6 flex flex-wrap items-center gap-x-7 gap-y-3">
+                <Link href="/design" className="btn btn-gold">Open the Design Studio</Link>
+                <Link href="/shop" className="link-u text-sm font-semibold">Browse the catalogue →</Link>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-end gap-x-8 gap-y-3 md:flex-col md:items-end md:gap-3">
+              {rate && <dl className="flex gap-6 md:gap-8">{['24K', '22K', '18K'].map((k) => <div key={k}><dt className="mono text-white/50">{k} / g</dt><dd className="serif text-xl tabular-nums md:text-2xl">{inr(rate.rates[k])}</dd></div>)}</dl>}
+              <p className="mono flex items-center gap-2 whitespace-nowrap text-gold"><span className="inline-block h-px w-8 bg-gold" />Drag to turn</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -79,7 +91,7 @@ export default async function Home() {
       {/* ── Collections as an index ───────────────────────────── */}
       <section className="maroon-band">
         <div className="mx-auto max-w-7xl px-4 py-24">
-          <div className="flex items-end justify-between"><h2 className="text-5xl md:text-6xl">The <em className="text-gold">collections</em></h2><span className="mono hidden md:block">Index · 5</span></div>
+          <div className="flex items-end justify-between"><h2 className="text-5xl md:text-6xl">The <em className="text-gold">collections</em></h2><span className="mono hidden md:block">Index · 6</span></div>
           <ul className="mt-12 border-t border-white/20">
             {COLLECTIONS.map(([k, tag, blurb], i) => (
               <li key={k} className="border-b border-white/20">
@@ -99,6 +111,21 @@ export default async function Home() {
         <section className="mx-auto max-w-7xl px-4 py-24">
           <div className="flex items-end justify-between"><div><p className="mono text-clay">From the catalogue</p><h2 className="mt-2 text-5xl text-[#3A0F1B] md:text-6xl">Featured <em className="text-gold">pieces</em></h2></div><Link href="/shop" className="link-u hidden text-sm font-semibold text-[#3A0F1B] md:block">All designs →</Link></div>
           <Reveal stagger={0.1} className="mt-12 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">{feat.items.slice(0, 8).map((d, i) => <DesignCard key={d.slug} design={d} index={i + 1} />)}</Reveal>
+        </section>)}
+
+      {/* ── Beyond jewellery: bullion and custom pieces ───────── */}
+      {bull?.items?.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-24">
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="lg:sticky lg:top-40 lg:self-start">
+              <p className="mono text-clay">Bars · coins · gold items</p>
+              <h2 className="mt-3 text-5xl leading-tight text-[#3A0F1B] md:text-6xl">Not only <em className="text-gold">jewellery.</em></h2>
+              <p className="mt-5 max-w-md text-[#3A0F1B]/75">We also make gold and silver bars and coins — and anything else you’d like cast in gold. Choose the weight, add your own engraving, and see the same itemised price at today’s rate.</p>
+              <ul className="mt-6 space-y-2 text-[#3A0F1B]/80">{['Bars from 1 g to 100 g', 'Coins from 1 g, in 22K or 24K', 'Your name, date or logo engraved', 'Any design you send us — we’ll make it'].map((t) => <li key={t} className="flex gap-3"><span className="text-gold">◆</span>{t}</li>)}</ul>
+              <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3"><Link href="/shop?collection=bullion" className="btn btn-navy">Shop bars &amp; coins</Link><Link href="/custom-request" className="link-u text-sm font-semibold text-[#3A0F1B]">Request a custom piece →</Link></div>
+            </div>
+            <Reveal stagger={0.1} className="grid gap-x-6 gap-y-12 sm:grid-cols-2">{bull.items.slice(0, 4).map((d, i) => <DesignCard key={d.slug} design={d} index={i + 1} />)}</Reveal>
+          </div>
         </section>)}
 
       {/* ── The price, explained ──────────────────────────────── */}

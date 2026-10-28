@@ -8,10 +8,11 @@ export default function SpecSummary({ design, config, quote, metals, stones }) {
     ['Metal', metal?.label || config.metal],
     ['Net metal weight', quote?.price ? `${quote.price.finalWeight} g` : '…'],
     ['Stone', stone ? `${stone.label}, ${SHAPE_LABELS[config.shape]}, ${config.carat} ct, ${config.quality}` : 'None'],
-    [design.category === 'ring' ? 'Ring size' : design.category === 'bangle' ? 'Bangle size (in)' : 'Size / length', config.size],
+    [design.category === 'ring' ? 'Ring size' : design.category === 'bangle' ? 'Bangle size (in)' : ['bar', 'coin'].includes(design.category) ? 'Weight (g)' : 'Size / length', config.size],
     ['Engraving', config.engraving || '—'],
-    ['Hallmark', 'BIS Hallmark with HUID'],
-    ['Certificate', stone?.certified ? 'IGI / GIA certified' : '—'],
+    ...(['bar', 'coin'].includes(design.category)
+      ? [['Purity', metal?.purity ? `${(metal.purity * 100).toFixed(metal.purity > 0.99 ? 2 : 1)}% fine` : '—']]
+      : [['Hallmark', 'BIS Hallmark with HUID'], ['Certificate', stone?.certified ? 'IGI / GIA certified' : '—']]),
   ];
   return (
     <dl className="card divide-y divide-gray-100 text-sm" data-testid="spec-summary">

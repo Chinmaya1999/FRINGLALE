@@ -5,6 +5,10 @@ for (const k of required) {
   if (!process.env[k]) throw new Error(`Missing required env var ${k}`);
 }
 
+if (process.env.NODE_ENV === 'production' && (process.env.JWT_SECRET.length < 32 || /change-me|secret|password/i.test(process.env.JWT_SECRET))) {
+  throw new Error('JWT_SECRET must be at least 32 random characters in production');
+}
+
 export const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   isProd: process.env.NODE_ENV === 'production',

@@ -16,7 +16,7 @@ import { Monogram } from '@/components/Logo';
 import Link from 'next/link';
 
 const STEPS = ['Type', 'Design', 'Metal', 'Stone shape', 'Stone & carat', 'Size', 'Engraving', 'Review'];
-const SIZE_TITLE = { ring: 'Ring size', bangle: 'Bangle size (inches)', pendant: 'Chain length (inches)', necklace: 'Chain length (inches)', earring: 'Size' };
+const SIZE_TITLE = { ring: 'Ring size', bangle: 'Bangle size (inches)', pendant: 'Chain length (inches)', necklace: 'Chain length (inches)', earring: 'Size', bar: 'Weight (grams)', coin: 'Weight (grams)', 'gold-item': 'Size' };
 
 function Choice({ selected, disabled, onClick, children, className = '' }) {
   return (
@@ -301,7 +301,7 @@ export default function DesignBuilder() {
             {design && step < 7 && <div className="text-right sm:hidden" aria-live="polite"><div className="label">Live price</div><div className={`serif text-xl tabular-nums ${loading ? 'opacity-50' : ''}`}>{quote ? inr(quote.price.total) : '—'}</div></div>}
           </div>
 
-          {design && config && step < 7 && step > 1 && (
+          {design && config && hasStoneOptions && step < 7 && step > 1 && (
             <div className="mt-3 flex flex-wrap gap-1.5" aria-label="Quick looks">
               {LOOKS.map((l) => <button key={l.name} onClick={() => applyLook(l)} className="rounded-full border border-white/20 px-3 py-1 text-[11px] text-white/75 hover:border-gold hover:text-gold-soft">{l.name}</button>)}
             </div>)}

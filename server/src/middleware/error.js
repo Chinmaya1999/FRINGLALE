@@ -12,6 +12,6 @@ export function errorHandler(err, _req, res, _next) {
   if (err.name === 'CastError') return res.status(400).json({ error: { message: 'Invalid id' } });
   if (err.code === 11000) return res.status(409).json({ error: { message: 'Already exists' } });
   const status = err.status || 500;
-  if (status >= 500) console.error(err);
-  res.status(status).json({ error: { message: status >= 500 && env.isProd ? 'Server error' : err.message, code: err.code } });
+  if (status >= 500 && status !== 501) console.error(err);
+  res.status(status).json({ error: { message: status >= 500 && env.isProd ? 'Server error' : err.message, code: err.code, ...(err.problems ? { problems: err.problems } : {}) } });
 }

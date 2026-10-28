@@ -24,8 +24,11 @@ export default function MotionProvider({ children }) {
     if (!r && !seen && location.pathname === '/') setLoader(true); else setReady(true);
   }, []);
 
+  // App-style screens (admin, editor) scroll inside their own panels, so page-level smooth scrolling must stay off there.
+  const appScreen = /^\/(admin|design|preview)/.test(path);
+
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || appScreen) return;
     const lenis = new Lenis({ lerp: 0.085, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (t) => lenis.raf(t * 1000);
@@ -33,7 +36,7 @@ export default function MotionProvider({ children }) {
     gsap.ticker.lagSmoothing(0);
     window.__lenis = lenis;
     return () => { gsap.ticker.remove(tick); lenis.destroy(); window.__lenis = null; };
-  }, [reduced]);
+  }, [reduced, appScreen]);
 
   // New route: top of page, recalc triggers after content paints.
   useEffect(() => { window.__lenis?.scrollTo(0, { immediate: true }); const t = setTimeout(() => ScrollTrigger.refresh(), 400); return () => clearTimeout(t); }, [path]);

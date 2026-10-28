@@ -10,7 +10,7 @@ import DesignCard, { COLLECTION_LABELS, ProductArt } from '@/components/DesignCa
 const METALS = [['yellow', 'Yellow gold'], ['white', 'White gold'], ['rose', 'Rose gold'], ['platinum', 'Platinum'], ['silver', 'Silver']];
 const STONES = [['natural-diamond', 'Natural diamond'], ['lab-grown-diamond', 'Lab-grown diamond'], ['ruby', 'Ruby'], ['emerald', 'Emerald'], ['sapphire', 'Sapphire']];
 const OCC = [['wedding', 'Wedding'], ['engagement', 'Engagement'], ['gifting', 'Gifting'], ['daily', 'Daily wear']];
-const BLURB = { bridal: 'For the vows.', 'red-carpet': 'For the spotlight — inspired by award-night glamour.', heritage: 'For the family — timeless gold.', everyday: 'For every day — light luxury.', signature: 'For the house — our solitaires.' };
+const BLURB = { bullion: 'For the vault — bars and coins by weight, engraved your way.', bridal: 'For the vows.', 'red-carpet': 'For the spotlight — inspired by award-night glamour.', heritage: 'For the family — timeless gold.', everyday: 'For every day — light luxury.', signature: 'For the house — our solitaires.' };
 
 export default function ShopClient() {
   const sp = useSearchParams();
@@ -74,7 +74,7 @@ export default function ShopClient() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#260A12]/85 p-4" role="dialog" aria-modal="true" aria-label={quick.name} onClick={() => setQuick(null)}>
           <div className="paper-page max-h-[90vh] w-full max-w-3xl overflow-auto border border-[#3A0F1B]" onClick={(e) => e.stopPropagation()}>
             <div className="grid md:grid-cols-2"><div className="p-6"><div className="arch aspect-[4/5] bg-[#260A12]"><ProductArt design={quick} className="h-full w-full" /></div></div>
-              <div className="flex flex-col justify-center p-6"><p className="mono text-clay">{COLLECTION_LABELS[quick.collection]}</p><h2 className="mt-1 text-4xl text-[#3A0F1B]">{quick.name}</h2><p className="mt-3 text-[#3A0F1B]/70">{quick.description}</p>
+              <div className="flex flex-col justify-center p-6"><p className="mono text-clay">{COLLECTION_LABELS[quick.series]}</p><h2 className="mt-1 text-4xl text-[#3A0F1B]">{quick.name}</h2><p className="mt-3 text-[#3A0F1B]/70">{quick.description}</p>
                 <p className="mono mt-4 text-[#3A0F1B]/55">{quick.baseWeight} g (18K, std size) · {quick.allowedMetals.length} metals</p>
                 <div className="mt-6 flex flex-wrap items-center gap-4"><Link href={`/design?design=${quick.slug}`} className="btn btn-navy">Design it</Link><Link href={`/product/${quick.slug}`} className="link-u text-sm font-semibold text-[#3A0F1B]">Full details</Link><button className="link-u text-sm text-[#3A0F1B]/60" onClick={() => setQuick(null)}>Close</button></div></div></div>
           </div>

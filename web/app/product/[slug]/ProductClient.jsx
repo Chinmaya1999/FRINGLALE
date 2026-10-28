@@ -53,7 +53,7 @@ export default function ProductClient({ design }) {
         {cfg && catalog && (
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             <label><span className="label">Metal</span><select className="input mt-1" value={cfg.metal} onChange={(e) => set({ metal: e.target.value })}>{catalog.metals.filter((m) => design.allowedMetals.includes(m.key)).map((m) => <option key={m.key} value={m.key}>{m.label}</option>)}</select></label>
-            <label><span className="label">Size</span><select className="input mt-1" value={cfg.size} onChange={(e) => set({ size: e.target.value })}>{design.allowedSizes.map((s) => <option key={s}>{s}</option>)}</select></label>
+            <label><span className="label">{['bar', 'coin'].includes(design.category) ? 'Weight (g)' : 'Size'}</span><select className="input mt-1" value={cfg.size} onChange={(e) => set({ size: e.target.value })}>{design.allowedSizes.map((s) => <option key={s}>{s}</option>)}</select></label>
             {design.allowedStoneTypes.length > 0 && <>
               <label><span className="label">Stone</span><select className="input mt-1" value={cfg.stoneType || ''} onChange={(e) => { const t = e.target.value; if (!t) return set({ stoneType: undefined, shape: undefined, quality: undefined, carat: undefined }); const d = defaultConfig({ ...design, allowedStoneTypes: [t] }, catalog.matrix); set({ stoneType: t, shape: d.shape, quality: d.quality, carat: cfg.carat || d.carat }); }}>
                 <option value="">No stone</option>{catalog.stones.filter((s) => design.allowedStoneTypes.includes(s.key)).map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}</select></label>

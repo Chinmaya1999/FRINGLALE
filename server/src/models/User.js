@@ -22,6 +22,9 @@ const userSchema = new Schema({
     select: false,
   },
   isActive: { type: Boolean, default: true },
+  tokenVersion: { type: Number, default: 0 },      // bump to revoke every issued token (password change, role change, deactivation)
+  failedLogins: { type: Number, default: 0, select: false },
+  lockUntil: { type: Date, select: false },
 }, { timestamps: true });
 
 export const User = mongoose.model('User', userSchema);

@@ -237,6 +237,38 @@ export const BUILDERS = {
     g.position.y = 0.25;
   },
 
+  'gold-bar'(g) {
+    // 40 x 24 mm footprint, 7 mm high (1 unit = 10 mm). Flat on a plinth, tilted a little towards camera so the top face reads.
+    const w = 2.4, d = 1.5, h = 0.55;
+    const body = new THREE.ExtrudeGeometry(
+      (() => { const s = new THREE.Shape(); const r = 0.1, x = w / 2, y = d / 2; s.moveTo(-x + r, -y); s.lineTo(x - r, -y); s.quadraticCurveTo(x, -y, x, -y + r); s.lineTo(x, y - r); s.quadraticCurveTo(x, y, x - r, y); s.lineTo(-x + r, y); s.quadraticCurveTo(-x, y, -x, y - r); s.lineTo(-x, -y + r); s.quadraticCurveTo(-x, -y, -x + r, -y); return s; })(),
+      { depth: h, bevelEnabled: true, bevelThickness: 0.07, bevelSize: 0.09, bevelSegments: 4 });
+    body.rotateX(-Math.PI / 2);
+    mesh(g, 'band', body, [0, -h / 2, 0]);
+    // raised inner plate + stamped ridge lines read as the minted face
+    mesh(g, 'head', new THREE.BoxGeometry(w * 0.74, 0.03, d * 0.62), [0, h / 2 + 0.12, 0]);
+    for (const z of [-0.2, 0, 0.2]) mesh(g, 'head', new THREE.BoxGeometry(w * 0.5, 0.02, 0.018), [0, h / 2 + 0.15, z]);
+    g.rotation.set(0.35, -0.45, 0);
+  },
+
+  'gold-coin'(g) {
+    // Round coin: thick rim, recessed field, raised central medallion and a ring of beads.
+    mesh(g, 'band', new THREE.CylinderGeometry(1.1, 1.1, 0.16, 96), [0, 0, 0], [Math.PI / 2, 0, 0]);
+    mesh(g, 'head', new THREE.TorusGeometry(1.04, 0.045, 12, 96), [0, 0, 0.09]);
+    mesh(g, 'head', new THREE.CylinderGeometry(0.62, 0.66, 0.05, 64), [0, 0, 0.1], [Math.PI / 2, 0, 0]);
+    mesh(g, 'head', new THREE.TorusGeometry(0.46, 0.028, 10, 64), [0, 0, 0.14]);
+    mesh(g, 'head', new THREE.SphereGeometry(0.17, 24, 16), [0, 0, 0.17]);
+    for (let i = 0; i < 40; i++) { const a = (i / 40) * Math.PI * 2; mesh(g, 'head', new THREE.SphereGeometry(0.03, 8, 6), [Math.cos(a) * 0.86, Math.sin(a) * 0.86, 0.11]); }
+    g.position.y = 0.2;
+    g.rotation.set(-0.15, 0.5, 0);
+  },
+
+  'engraved-coin'(g, { text }) {
+    BUILDERS['gold-coin'](g, {});
+    // Replace the centre medallion detail with a flat engraving plate; the actual lettering is shown as a label by the viewer (simulated).
+    mesh(g, 'head', new THREE.TorusGeometry(0.72, 0.02, 8, 64), [0, 0, 0.12]);
+  },
+
   'kada-bangle'(g) {
     g.rotation.x = -0.75;
     mesh(g, 'band', bandGeometry(1.15, 0.5, 0.22, 3));
@@ -255,5 +287,7 @@ export function buildProcedural(style, opts = {}) {
   const fn = BUILDERS[style];
   if (!fn) throw new Error(`Unknown procedural style "${style}"`);
   fn(g, { shape: opts.shape || 'round' });
+  // Bullion pieces grow with their stated weight (cube-root so a 100 g bar is visibly larger without leaving the frame).
+  if (opts.weightG) g.scale.setScalar(Math.min(1.5, Math.max(0.65, Math.cbrt(opts.weightG / 10))));
   return g;
 }

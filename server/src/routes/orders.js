@@ -42,7 +42,7 @@ async function capture(payment, razorpayPaymentId, raw) {
 // Raw body is mounted in app.js for this route.
 r.post('/payments/webhook', wrap(async (req, res) => {
   const sig = req.headers['x-razorpay-signature'];
-  if (!sig || !verifyWebhook(req.body, sig)) throw new HttpError(400, 'Bad signature');
+  if (!Buffer.isBuffer(req.body) || !sig || !verifyWebhook(req.body, sig)) throw new HttpError(400, 'Bad signature');
   const evt = JSON.parse(req.body.toString());
   if (evt.event === 'payment.captured') {
     const e = evt.payload.payment.entity;
@@ -75,7 +75,13 @@ r.post('/orders', validate(z.object({ address, paymentMode: z.enum(['full', 'adv
     payment: { mode: req.body.paymentMode, paid: 0, due: total, status: 'pending' },
     stage: 'order_placed',
   });
-  const gw = await createGatewayOrder(payNow, order.orderNo);
+  let gw;
+  try { gw = await createGatewayOrder(payNow, order.orderNo); }
+  catch (e) {
+    await Order.deleteOne({ _id: order._id });          // don't leave an unpayable order behind
+    console.error('[payments] gateway order failed:', e.message);
+    throw new HttpError(502, 'Payment provider is unavailable. Please try again.');
+  }
   await Payment.create({ order: order._id, user: req.user._id, razorpayOrderId: gw.id, amount: payNow, kind: req.body.paymentMode });
   res.status(201).json({ order, gateway: { mode: paymentsMode(), keyId: publicKeyId(), orderId: gw.id, amount: gw.amount, currency: 'INR' } });
 }));

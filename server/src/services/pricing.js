@@ -122,7 +122,7 @@ export function describeSupport(design, config) {
   const metalBacked = !!m.assetBackedMetals?.includes(config.metal);
   const simulated = new Set(design.simulated || []);
 
-  if (!variant) simulated.add('stone-shape');
+  if (!variant && config.stoneType) simulated.add('stone-shape');
   if (!metalBacked) simulated.add('metal-finish');
   if (config.engraving) simulated.add('engraving');
   if (config.stoneType) simulated.add('stone-size');   // carat is scaled visually, not modelled per carat weight

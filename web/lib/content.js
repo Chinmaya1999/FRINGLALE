@@ -30,5 +30,7 @@ export const FAQ = [
   ['Is the 3D view exactly what I will receive?', 'Not always. The studio tells you which parts are real 3D models, which are visually simulated, and whether the design is approved for manufacturing.'],
   ['Is my jewellery hallmarked?', 'Gold jewellery carries a BIS hallmark with a 6-character HUID, which you can verify.'],
   ['Can I pay in instalments?', 'You can pay an advance now and the balance before shipping.'],
+  ['Do you make bars, coins and other gold items?', 'Yes. Gold and silver bars and coins can be ordered by weight with your own engraving, and we make any other gold item to a design you send us through the Custom page. Pricing follows the same live gold rate.'],
+  ['Can you make my own design?', 'Yes. Upload a sketch or photo on the Custom page, or book a designer call. We turn it into CAD for your approval and nothing is made until you approve.'],
   ['Can I exchange old gold?', 'Yes, see our buyback policy.'],
 ];

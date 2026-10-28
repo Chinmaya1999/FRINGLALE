@@ -20,10 +20,10 @@ const variantSchema = new Schema({
 const designSchema = new Schema({
   slug: { type: String, unique: true, required: true, index: true },
   name: { type: String, required: true },
-  category: { type: String, enum: ['ring', 'pendant', 'earring', 'necklace', 'bangle'], required: true, index: true },
+  category: { type: String, enum: ['ring', 'pendant', 'earring', 'necklace', 'bangle', 'bar', 'coin', 'gold-item'], required: true, index: true },
   description: String,
-  occasions: [{ type: String, enum: ['wedding', 'engagement', 'gifting', 'daily'] }],
-  collection: { type: String, enum: ['bridal', 'red-carpet', 'heritage', 'everyday', 'signature'], index: true },
+  occasions: [{ type: String, enum: ['wedding', 'engagement', 'gifting', 'daily', 'investment', 'festival'] }],
+  series: { type: String, enum: ['bridal', 'red-carpet', 'heritage', 'everyday', 'signature', 'bullion'], index: true },
   images: [String],
   baseWeight: { type: Number, required: true },   // grams at 18K reference, default size
   makingType: { type: String, enum: ['percent', 'perGram'], default: 'percent' },

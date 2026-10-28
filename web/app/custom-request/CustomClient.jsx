@@ -33,7 +33,7 @@ function Inner() {
       <h1 className="text-4xl text-navy">Custom design request</h1>
       <p className="mt-2 text-gray-600">Have a sketch, a photo or an idea? Tell us — our designers will turn it into CAD for your approval.</p>
       <form onSubmit={submit} className="card mt-6 space-y-4 p-6">
-        <label className="block"><span className="label">Type</span><select className="input mt-1" value={f.category} onChange={(e) => setF({ ...f, category: e.target.value })}>{['ring', 'pendant', 'earring', 'necklace', 'bangle', 'other'].map((x) => <option key={x}>{x}</option>)}</select></label>
+        <label className="block"><span className="label">Type</span><select className="input mt-1" value={f.category} onChange={(e) => setF({ ...f, category: e.target.value })}>{[['ring', 'Ring'], ['pendant', 'Pendant'], ['earring', 'Earrings'], ['necklace', 'Necklace'], ['bangle', 'Bangle'], ['bar', 'Gold / silver bar'], ['coin', 'Coin (custom engraved)'], ['gold-item', 'Other gold item'], ['other', 'Something else']].map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
         <label className="block"><span className="label">Describe your idea</span><textarea required minLength={10} maxLength={3000} rows={5} className="input mt-1" value={f.description} onChange={(e) => setF({ ...f, description: e.target.value })} /></label>
         <div className="grid grid-cols-2 gap-3">
           <label><span className="label">Budget from (₹)</span><input type="number" min="0" className="input mt-1" value={f.budgetMin} onChange={(e) => setF({ ...f, budgetMin: e.target.value })} /></label>

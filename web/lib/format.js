@@ -9,7 +9,7 @@ export const STAGE_LABELS = {
 export const STAGES = Object.keys(STAGE_LABELS);
 
 export const SHAPE_LABELS = { round: 'Round', oval: 'Oval', pear: 'Pear', cushion: 'Cushion', emerald: 'Emerald', heart: 'Heart', princess: 'Princess' };
-export const CATEGORY_LABELS = { ring: 'Ring', pendant: 'Pendant', earring: 'Earrings', necklace: 'Necklace', bangle: 'Bangle' };
+export const CATEGORY_LABELS = { ring: 'Ring', pendant: 'Pendant', earring: 'Earrings', necklace: 'Necklace', bangle: 'Bangle', bar: 'Gold & silver bar', coin: 'Coin', 'gold-item': 'Other gold item' };
 
 export const SIM_LABELS = {
   'stone-shape': 'Stone shape', 'metal-finish': 'Metal finish', engraving: 'Engraving text', 'gemstone-colour': 'Gemstone colour',

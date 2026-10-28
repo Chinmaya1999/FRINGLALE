@@ -360,7 +360,7 @@ function Inner() {
             <button className="btn btn-ghost !px-3 !py-1.5 text-xs" onClick={signOut}>Sign out</button>
           </div>
         </header>
-        <main className="min-h-0 flex-1 overflow-y-auto p-4 pt-3"><View /></main>
+        <main data-lenis-prevent className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-4 pt-3"><View /></main>
       </div>
     </div>
   );
