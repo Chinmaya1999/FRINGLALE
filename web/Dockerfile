@@ -8,7 +8,7 @@ FROM node:22-alpine AS build
 WORKDIR /app
 # Next bakes the /api rewrite target and NEXT_PUBLIC_* values at build time.
 ARG API_URL=http://server:4000
-ARG NEXT_PUBLIC_SITE_URL=http://localhost
+ARG NEXT_PUBLIC_SITE_URL=https://fringlale.com
 ARG NEXT_PUBLIC_GOOGLE_CLIENT_ID=
 ENV API_URL=$API_URL NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL NEXT_PUBLIC_GOOGLE_CLIENT_ID=$NEXT_PUBLIC_GOOGLE_CLIENT_ID NEXT_TELEMETRY_DISABLED=1
 COPY --from=deps /app/node_modules ./node_modules

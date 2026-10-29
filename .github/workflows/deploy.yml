@@ -61,7 +61,7 @@ jobs:
           platforms: linux/amd64
           build-args: |
             API_URL=http://server:4000
-            NEXT_PUBLIC_SITE_URL=${{ vars.SITE_URL || format('http://{0}', secrets.EC2_HOST) }}
+            NEXT_PUBLIC_SITE_URL=https://fringlale.com
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/fringlale-web:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/fringlale-web:${{ github.sha }}
@@ -90,7 +90,6 @@ jobs:
           cd ~/fringlale
           echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" > .env
           echo "TAG=${{ github.sha }}" >> .env
-          echo "SITE_ADDRESS=${{ vars.SITE_ADDRESS || ':80' }}" >> .env
           echo '${{ secrets.DOCKERHUB_TOKEN }}' | docker login -u '${{ secrets.DOCKERHUB_USERNAME }}' --password-stdin
           docker compose pull
           docker compose up -d --remove-orphans
@@ -99,9 +98,9 @@ jobs:
       - name: Health check and warm-up
         run: |
           for i in $(seq 1 30); do
-            if curl -fsS "http://${{ secrets.EC2_HOST }}/api/health" >/dev/null; then ok=1; break; fi
+            if curl -fsS "https://api.fringlale.com/api/health" >/dev/null; then ok=1; break; fi
             sleep 5
           done
           [ "${ok:-0}" = 1 ] || { echo "health check failed"; exit 1; }
           # pages are prerendered at image build time (no API there); two hits make Next regenerate them with live data
-          for p in / /shop / /shop; do curl -fsS -o /dev/null "http://${{ secrets.EC2_HOST }}$p" || true; sleep 2; done
+          for p in / /shop / /shop; do curl -fsS -o /dev/null "https://fringlale.com$p" || true; sleep 2; done

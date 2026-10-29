@@ -7,4 +7,4 @@ services:
       context: ./src/web
       args:
         API_URL: http://server:4000
-        NEXT_PUBLIC_SITE_URL: http://13.127.179.117
+        NEXT_PUBLIC_SITE_URL: https://fringlale.com
