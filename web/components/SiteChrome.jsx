@@ -2,6 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Header from './Header';
 import Footer from './Footer';
+import GoldTicker from './GoldTicker';
 import MotionProvider from './motion/MotionProvider';
 
 // Full-screen app surfaces (editor, admin, capture route) bring their own chrome.
@@ -17,5 +18,5 @@ const Announcement = () => (
 export default function SiteChrome({ children }) {
   const path = usePathname();
   const bare = BARE.some((r) => r.test(path));
-  return (<>{!bare && <><Announcement /><Header /></>}<main><MotionProvider>{children}</MotionProvider></main>{!bare && <Footer />}</>);
+  return (<>{!bare && <><Announcement /><GoldTicker /><Header /></>}<main><MotionProvider>{children}</MotionProvider></main>{!bare && <Footer />}</>);
 }

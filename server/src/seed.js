@@ -206,6 +206,55 @@ designs.push(
   },
 );
 
+// Dubai & Gulf collection: traditional Gulf gold forms, shown with the nearest real photograph and previewed with the closest 3D style.
+const GULF = [
+  ['noor-turquoise-pearl-ring', 'Noor Turquoise & Pearl Ring', 'ring', 'heritage', 'cocktail-ring', "A bold turquoise cabochon framed by a ring of pearls, in the Gulf tradition of statement gold.", 7.5],
+  ['khaleeji-pearl-collar-necklace', 'Khaleeji Pearl Collar Necklace', 'necklace', 'bridal', 'riviere-necklace', "Rows of pearls gathered into a gold-set collar, worn at Gulf weddings and Eid.", 28],
+  ['dana-pearl-pendant-necklace', 'Dana Pearl Pendant Necklace', 'necklace', 'everyday', 'riviere-necklace', "Strands of seed pearls ending in a gold bead pendant with a soft tassel.", 16],
+  ['sahara-gold-bead-necklace', 'Sahara Gold Bead Necklace', 'necklace', 'heritage', 'riviere-necklace', "A long chain of hand-made gold beads and spindle links, light enough for every day.", 22],
+  ['shams-sun-medallion-pendant', 'Shams Sun Medallion Pendant', 'pendant', 'signature', 'halo-pendant', "A radiating gold sun set with a central gem, a classic Gulf bridal medallion.", 9],
+  ['hilal-crescent-turquoise-pendant', 'Hilal Crescent Turquoise Pendant', 'pendant', 'heritage', 'teardrop-pendant', "A crescent of filigree with turquoise cabochons and a fringe of gold leaves.", 8],
+  ['qamar-crescent-pendant', 'Qamar Crescent Pendant', 'pendant', 'bridal', 'teardrop-pendant', "A fine gold crescent with turquoise and a fall of tiny gold petals.", 7],
+  ['majlis-jhumka-earrings', 'Majlis Jhumka Earrings', 'earring', 'bridal', 'drop-earrings', "Domed gold jhumkas with filigree work and a fringe of seed pearls.", 10],
+  ['wadi-cone-drop-earrings', 'Wadi Cone Drop Earrings', 'earring', 'heritage', 'drop-earrings', "Hand-wrought gold cones with turquoise, hung from fine hoops.", 9],
+  ['firuza-turquoise-jhumka-earrings', 'Firuza Turquoise Jhumka Earrings', 'earring', 'red-carpet', 'drop-earrings', "Gold jhumkas set with turquoise and edged in pearls, made to be noticed.", 10],
+  ['lulu-pearl-tassel-earrings', 'Lulu Pearl Tassel Earrings', 'earring', 'everyday', 'drop-earrings', "Cascades of seed pearls beneath a gold cap, light and elegant.", 6],
+  ['zahra-gold-drop-earrings', 'Zahra Gold Drop Earrings', 'earring', 'signature', 'drop-earrings', "Graduated gold beads falling to a tapered tip, a long evening line.", 8],
+  ['sheikha-chandelier-earrings', 'Sheikha Chandelier Earrings', 'earring', 'red-carpet', 'drop-earrings', "Filigree gold chandeliers with coloured stones, inspired by Gulf heirlooms.", 11],
+  ['amal-turquoise-gold-bangle', 'Amal Turquoise Gold Bangle', 'bangle', 'bridal', 'kada-bangle', "A wide gold bangle with turquoise flowers and granulated bosses.", 34],
+  ['burj-spiked-gold-bangle', 'Burj Spiked Gold Bangle', 'bangle', 'signature', 'kada-bangle', "A polished gold bangle edged with a row of pointed studs.", 28],
+  ['layla-pearl-gemstone-bangle', 'Layla Pearl & Gemstone Bangle', 'bangle', 'bridal', 'kada-bangle', "Gold bangle set with a band of pearls and coloured gems.", 30],
+  ['deira-jewelled-gold-bangle', 'Deira Jewelled Gold Bangle', 'bangle', 'red-carpet', 'kada-bangle', "A broad gold cuff of rosettes set with rubies and emeralds.", 36],
+  ['souk-gold-boss-bangle-pair', 'Souk Gold Boss Bangle Pair', 'bangle', 'everyday', 'kada-bangle', "A matching pair of slim gold bangles with raised bosses.", 20],
+  ['jazeera-gold-bell-bangle', 'Jazeera Gold Bell Bangle', 'bangle', 'heritage', 'kada-bangle', "A fine gold bangle hung with little bells that chime as you move.", 18],
+  ['marjan-coral-gold-bead-bracelet', 'Marjan Coral & Gold Bead Bracelet', 'bangle', 'heritage', 'kada-bangle', "Hand-cut coral beads alternating with ridged gold beads.", 16],
+];
+const GULF_SIZES = { ring: ringSizes, necklace: ['16', '18', '20'], pendant: ['16', '18', '20'], earring: ['std'], bangle: ['2.4', '2.6', '2.8'] };
+const GULF_FIT = { necklace: 1.45, earring: 1.15, pendant: 1.1, bangle: 1.05, ring: 1.05 };
+for (const [slug, name, category, series, style, description, baseWeight] of GULF) {
+  designs.push({
+    ...base, slug, name, category, series, description, baseWeight,
+    occasions: series === 'bridal' ? ['wedding', 'gifting'] : ['gifting', 'daily'], allowedSizes: GULF_SIZES[category],
+    caratRange: { min: 0.2, max: 2 }, makingValue: 14, allowedMetals: GOLD_METALS,
+    ...(category === 'bangle' ? { allowedStoneTypes: [], allowedShapes: [], allowedQualities: [], makingValue: 10 } : {}),
+    model3d: proc(style, { fit: GULF_FIT[category] }), simulated: ['parametric-model'], manufacturing: { status: 'concept' },
+  });
+}
+
+// Dubai gold designs from supplied photographs (server/src/data/dubaiDesigns.json).
+const DUBAI_DESIGNS = JSON.parse(fs.readFileSync(new URL('./data/dubaiDesigns.json', import.meta.url), 'utf8'));
+const DUBAI_SIZES = { ring: ringSizes, necklace: ['16', '18', '20'], pendant: ['16', '18', '20'], earring: ['std'], bangle: ['2.4', '2.6', '2.8'] };
+const DUBAI_FIT = { necklace: 1.45, earring: 1.15, pendant: 1.1, bangle: 1.05, ring: 1.05 };
+for (const d of DUBAI_DESIGNS) {
+  designs.push({
+    ...base, slug: d.slug, name: d.name, category: d.category, series: d.series, description: d.description, baseWeight: d.weight,
+    occasions: d.series === 'bridal' ? ['wedding', 'gifting'] : ['gifting', 'daily'], allowedSizes: DUBAI_SIZES[d.category],
+    caratRange: { min: 0.2, max: 2 }, makingValue: 14, allowedMetals: GOLD_METALS,
+    ...(d.category === 'bangle' ? { allowedStoneTypes: [], allowedShapes: [], allowedQualities: [], makingValue: 10 } : {}),
+    model3d: proc(d.style, { fit: DUBAI_FIT[d.category] }), simulated: ['parametric-model'], manufacturing: { status: 'concept' },
+  });
+}
+
 const sizeFactors = {
   ring: Object.fromEntries(ringSizes.map((s) => [s, +(1 + (Number(s) - 12) * 0.03).toFixed(3)])),
   pendant: { 16: 0.95, 18: 1, 20: 1.07 }, necklace: { 16: 0.9, 18: 1, 20: 1.12 },
@@ -215,6 +264,19 @@ const sizeFactors = {
 
 async function main() {
   await connectDb();
+
+  // SEED_ONLY_NEW=1: add designs that do not exist yet and touch nothing else (safe on a live database).
+  if (process.env.SEED_ONLY_NEW) {
+    let added = 0;
+    for (const d of designs) {
+      const img = `/designs/${d.slug}.png`;
+      const r = await Design.updateOne({ slug: d.slug }, { $setOnInsert: { ...d, images: fs.existsSync(path.resolve('../web/public' + img)) ? [img] : [] } }, { upsert: true });
+      added += r.upsertedCount;
+    }
+    console.log(`Added ${added} new designs (${designs.length - added} already existed, left unchanged)`);
+    await mongoose.disconnect();
+    return;
+  }
 
   for (const m of metals) await Metal.updateOne({ key: m.key }, m, { upsert: true });
   for (const s of stones) await Stone.updateOne({ key: s.key }, s, { upsert: true });

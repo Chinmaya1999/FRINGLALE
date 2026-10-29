@@ -11,7 +11,7 @@ import { CATEGORY_LABELS, SHAPE_LABELS, inr } from '@/lib/format';
 import JewelViewer from '@/components/studio/JewelViewer';
 import PriceBreakdown from '@/components/PriceBreakdown';
 import SpecSummary from '@/components/SpecSummary';
-import { ProductArt } from '@/components/DesignCard';
+import { ProductArt, designPhoto } from '@/components/DesignCard';
 
 export default function ProductClient({ design }) {
   const catalog = useCatalog();
@@ -41,7 +41,7 @@ export default function ProductClient({ design }) {
           {[['3d', '3D view'], ['photos', 'Photos']].map(([k, l]) => <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={`btn !py-1.5 ${tab === k ? 'btn-navy' : 'btn-ghost text-[#3A0F1B]'}`}>{l}</button>)}
         </div>
         {tab === '3d' ? (items.length ? <JewelViewer items={items} heightClass="h-[62vh]" /> : <div className="h-[55vh] animate-pulse rounded-2xl bg-navy/20" />)
-          : <div className="grid gap-3 sm:grid-cols-2">{(design.images?.length ? design.images : [null, null]).map((src, i) => <ProductArt key={i} design={{ ...design, images: src ? [src] : [] }} className="aspect-square w-full rounded-xl" />)}</div>}
+          : <div className="grid gap-3 sm:grid-cols-2">{[designPhoto(design)?.src, ...(design.images || [])].filter(Boolean).map((src, i) => <ProductArt key={i} design={design} src={src} className="aspect-square w-full rounded-xl" />)}</div>}
       </div>
 
       <div>

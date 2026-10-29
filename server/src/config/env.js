@@ -25,6 +25,7 @@ export const env = {
     webhookSecret: process.env.RAZORPAY_WEBHOOK_SECRET || '',
   },
   goldApiUrl: process.env.GOLD_API_URL || '',
-  goldPremiumPct: Number(process.env.GOLD_PREMIUM_PCT || 0),
+  // Indian retail rate = international spot in INR + import duty and market premium. 16.7 matches Groww/Goodreturns/Google on 29 Oct 2026 (24K ₹14,395/g vs spot ₹12,329).
+  goldPremiumPct: Number(process.env.GOLD_PREMIUM_PCT ?? 16.7),
   goldApiKey: process.env.GOLD_API_KEY || '',
 };

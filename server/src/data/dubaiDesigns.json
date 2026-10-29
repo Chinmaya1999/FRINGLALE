@@ -1,0 +1,155 @@
+[
+ {
+  "slug": "sunburst-chandbali-earrings",
+  "name": "Sunburst Chandbali Earrings",
+  "category": "earring",
+  "series": "bridal",
+  "style": "drop-earrings",
+  "weight": 9,
+  "description": "Sunburst Chandbali Earrings: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "filigree-heart-chandelier-earrings",
+  "name": "Filigree Heart Chandelier Earrings",
+  "category": "earring",
+  "series": "red-carpet",
+  "style": "drop-earrings",
+  "weight": 10,
+  "description": "Filigree Heart Chandelier Earrings: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "royal-gold-bridal-choker",
+  "name": "Royal Gold Bridal Choker",
+  "category": "necklace",
+  "series": "bridal",
+  "style": "riviere-necklace",
+  "weight": 48,
+  "description": "Royal Gold Bridal Choker: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "teardrop-gold-necklace-set",
+  "name": "Teardrop Gold Necklace Set",
+  "category": "necklace",
+  "series": "bridal",
+  "style": "riviere-necklace",
+  "weight": 32,
+  "description": "Teardrop Gold Necklace Set: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "crescent-diamond-chandbali-earrings",
+  "name": "Crescent Diamond Chandbali Earrings",
+  "category": "earring",
+  "series": "signature",
+  "style": "drop-earrings",
+  "weight": 9,
+  "description": "Crescent Diamond Chandbali Earrings: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "floral-tassel-gold-set",
+  "name": "Floral Tassel Gold Set",
+  "category": "necklace",
+  "series": "signature",
+  "style": "riviere-necklace",
+  "weight": 30,
+  "description": "Floral Tassel Gold Set: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "floral-gold-bridal-set",
+  "name": "Floral Gold Bridal Set",
+  "category": "necklace",
+  "series": "bridal",
+  "style": "riviere-necklace",
+  "weight": 38,
+  "description": "Floral Gold Bridal Set: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "double-sphere-gold-ring",
+  "name": "Double Sphere Gold Ring",
+  "category": "ring",
+  "series": "everyday",
+  "style": "cocktail-ring",
+  "weight": 6,
+  "description": "Double Sphere Gold Ring: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "stacked-gold-band-ring",
+  "name": "Stacked Gold Band Ring",
+  "category": "ring",
+  "series": "everyday",
+  "style": "plain-band",
+  "weight": 7,
+  "description": "Stacked Gold Band Ring: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "floral-gold-kada-pair",
+  "name": "Floral Gold Kada Pair",
+  "category": "bangle",
+  "series": "heritage",
+  "style": "kada-bangle",
+  "weight": 30,
+  "description": "Floral Gold Kada Pair: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "gold-jhumka-hoop-earrings",
+  "name": "Gold Jhumka Hoop Earrings",
+  "category": "earring",
+  "series": "everyday",
+  "style": "drop-earrings",
+  "weight": 4,
+  "description": "Gold Jhumka Hoop Earrings: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "gold-tassel-hoop-earrings",
+  "name": "Gold Tassel Hoop Earrings",
+  "category": "earring",
+  "series": "everyday",
+  "style": "drop-earrings",
+  "weight": 4,
+  "description": "Gold Tassel Hoop Earrings: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "filigree-drop-earrings",
+  "name": "Filigree Drop Earrings",
+  "category": "earring",
+  "series": "signature",
+  "style": "drop-earrings",
+  "weight": 5,
+  "description": "Filigree Drop Earrings: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "arabesque-heart-drop-earrings",
+  "name": "Arabesque Heart Drop Earrings",
+  "category": "earring",
+  "series": "bridal",
+  "style": "drop-earrings",
+  "weight": 7,
+  "description": "Arabesque Heart Drop Earrings: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "round-filigree-pendant-set",
+  "name": "Round Filigree Pendant Set",
+  "category": "pendant",
+  "series": "everyday",
+  "style": "halo-pendant",
+  "weight": 8,
+  "description": "Round Filigree Pendant Set: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "filigree-flower-cuff",
+  "name": "Filigree Flower Cuff",
+  "category": "bangle",
+  "series": "red-carpet",
+  "style": "kada-bangle",
+  "weight": 34,
+  "description": "Filigree Flower Cuff: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ },
+ {
+  "slug": "teardrop-gold-necklace-set-2",
+  "name": "Teardrop Gold Necklace Set",
+  "category": "necklace",
+  "series": "red-carpet",
+  "style": "riviere-necklace",
+  "weight": 34,
+  "description": "Teardrop Gold Necklace Set: Dubai-style gold jewellery. Choose your metal and size; our designers confirm every detail before casting."
+ }
+]

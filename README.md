@@ -119,3 +119,5 @@ Razorpay webhook URL: `https://<api-host>/api/payments/webhook`, event `payment.
 ## Motion layer
 
 `web/components/motion/`: Lenis smooth scroll + GSAP ScrollTrigger (`MotionProvider`), a once-per-session loader, reveal / line-mask / parallax / count-up helpers (`Reveal.jsx`), and `ScrollStage` — a pinned section where scrolling spins the 3D ring, flies the camera, swaps metals and explodes the parts. All of it is disabled for `prefers-reduced-motion` (ScrollStage falls back to a static layout) and when WebGL is unavailable.
+
+- `web/public/designs/*-photo.jpg` + `web/lib/designPhotos.json`: real, openly licensed photographs (Wikimedia Commons) of the nearest real-world piece for 16 catalogue designs, shown on the shop cards and the product Photos tab with artist and licence. Remove an entry from the JSON to fall back to the 3D render. Credits must stay visible.
