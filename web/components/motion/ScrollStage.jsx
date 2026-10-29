@@ -34,12 +34,15 @@ export default function ScrollStage({ slug = 'celestia-halo-ring', label = 'Cele
   const [metalIdx, setMetalIdx] = useState(0);
   const [exploded, setExploded] = useState(false);
   const [chapter, setChapter] = useState(0);
+  // Phones skip this pinned showcase entirely (it fights the page scroll); nothing below depends on it.
+  const [wide, setWide] = useState(false);
+  useEffect(() => { setWide(window.matchMedia('(min-width: 768px)').matches); }, []);
 
-  useEffect(() => { setGl(supportsWebGL()); setTier(detectTier()); api(`/designs/${slug}`).then((r) => setDesign(r.design)).catch(() => {}); }, [slug]);
+  useEffect(() => { if (!wide) return; setGl(supportsWebGL()); setTier(detectTier()); api(`/designs/${slug}`).then((r) => setDesign(r.design)).catch(() => {}); }, [slug, wide]);
 
   useEffect(() => {
     const el = wrap.current;
-    if (!el || reduced) return;
+    if (!el || reduced || !wide) return;
     const st = ScrollTrigger.create({
       trigger: el, start: 'top top', end: 'bottom bottom',
       onUpdate: (self) => {
@@ -51,7 +54,7 @@ export default function ScrollStage({ slug = 'celestia-halo-ring', label = 'Cele
       },
     });
     return () => st.kill();
-  }, [reduced, design]);
+  }, [reduced, design, wide]);
 
   const items = useMemo(() => {
     if (!design || !catalog) return [];
@@ -61,6 +64,7 @@ export default function ScrollStage({ slug = 'celestia-halo-ring', label = 'Cele
 
   // No WebGL / reduced motion: a calm static version with the same content.
   const staticMode = reduced || gl === false;
+  if (!wide) return null;
 
   return (
     <section ref={wrap} className={`relative ${tone} text-[#f3eadb]`} style={{ height: staticMode ? 'auto' : '460vh' }} aria-label={`Scroll through the ${label}`}>
