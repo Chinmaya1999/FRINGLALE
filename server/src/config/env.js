@@ -25,5 +25,6 @@ export const env = {
     webhookSecret: process.env.RAZORPAY_WEBHOOK_SECRET || '',
   },
   goldApiUrl: process.env.GOLD_API_URL || '',
+  goldPremiumPct: Number(process.env.GOLD_PREMIUM_PCT || 0),
   goldApiKey: process.env.GOLD_API_KEY || '',
 };

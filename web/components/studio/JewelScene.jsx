@@ -299,7 +299,19 @@ function Spin({ on }) {
   return null;
 }
 
-export default function JewelScene({ items, tier, exploded, highlight, showMeasure, autoRotate, reduced, preset, hologram, scrollRef, onDowngrade, onFail }) {
+/** OrbitControls sets touch-action:none on the canvas, which swallows page scroll on phones. Embedded scenes hand vertical swipes back to the page. */
+function PageScroll() {
+  const el = useThree((s) => s.gl.domElement);
+  useEffect(() => {
+    const set = () => { el.style.touchAction = 'pan-y'; };
+    set();
+    const t = setTimeout(set, 0);   // after OrbitControls connects
+    return () => clearTimeout(t);
+  }, [el]);
+  return null;
+}
+
+export default function JewelScene({ items, tier, exploded, highlight, showMeasure, autoRotate, reduced, preset, hologram, scrollRef, pageScroll, onDowngrade, onFail }) {
   const cfg = TIERS[tier];
   const controls = useRef();
   const spacing = 2.8;
@@ -331,6 +343,7 @@ export default function JewelScene({ items, tier, exploded, highlight, showMeasu
       <OrbitControls ref={controls} makeDefault enabled={!scrollRef} enablePan={false} enableDamping={!reduced} dampingFactor={0.08}
         minDistance={2} maxDistance={14} autoRotate={autoRotate && !reduced} autoRotateSpeed={1.2}
         maxPolarAngle={Math.PI * 0.62} target={[0, hologram ? 0 : 0.2, 0]} />
+      {(scrollRef || pageScroll) && <PageScroll />}
       {scrollRef ? <ScrollCam scrollRef={scrollRef} reduced={reduced} /> : <CameraRig preset={preset} reduced={reduced} controls={controls} distance={distance} />}
       <Spin on={(autoRotate && !reduced) || (hologram && !reduced)} />
     </Canvas>

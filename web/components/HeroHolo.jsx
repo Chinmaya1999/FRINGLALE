@@ -26,5 +26,5 @@ export default function HeroHolo({ slug = 'celestia-halo-ring', mode = 'holo', m
   }, [design, catalog, mode, metal]);
   if (gl === false || (design && !items.length && catalog?.error)) return design?.images?.[0] ? <img src={design.images[0]} alt={design.name} className="h-full w-full object-cover" /> : null;
   if (!items.length) return <div className="h-full w-full animate-pulse" aria-hidden="true" />;
-  return <JewelScene items={items} tier={tier === 'high' ? 'medium' : tier} exploded={false} highlight={null} showMeasure={false} autoRotate hologram={mode === 'holo'} reduced={reduced} preset="angle" />;
+  return <JewelScene items={items} tier={tier === 'high' ? 'medium' : tier} exploded={false} highlight={null} showMeasure={false} autoRotate hologram={mode === 'holo'} reduced={reduced} preset="angle" pageScroll />;
 }
