@@ -1,5 +1,113 @@
 [
  {
+  "src": "/gallery/gold-bangles-stacked-at-the-gold-souq-doha.jpg",
+  "cat": "bridal",
+  "gulf": true,
+  "title": "Gold bangles stacked at the Gold Souq, Doha",
+  "license": "CC BY-SA 3.0",
+  "artist": "Alex Sergeev",
+  "page": "https://commons.wikimedia.org/wiki/File:Golden_bracelets_and_necklaces_at_the_Gold_Souq_in_Doha.jpg"
+ },
+ {
+  "src": "/gallery/gulf-gold-pectoral-with-coloured-stones.jpg",
+  "cat": "necklace",
+  "gulf": true,
+  "title": "Gulf gold pectoral with coloured stones",
+  "license": "CC BY-SA 3.0",
+  "artist": "Alex Sergeev",
+  "page": "https://commons.wikimedia.org/wiki/File:Jewelry_being_shown_at_Sheikh_Faisal_bin_Qassim_Al_Thani_Museum.jpg"
+ },
+ {
+  "src": "/gallery/traditional-qatari-coin-necklace-gold.jpg",
+  "cat": "necklace",
+  "gulf": true,
+  "title": "Traditional Qatari coin necklace, gold",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_gioielleria_femminile_tradizionale,_xx_secolo,_collana_02.jpg"
+ },
+ {
+  "src": "/gallery/qatari-gold-earrings-with-enamel-and-seed-pearls.jpg",
+  "cat": "earring",
+  "gulf": true,
+  "title": "Qatari gold earrings with enamel and seed pearls",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_gioielleria_femminile_tradizionale,_xx_secolo,_orecchini_03.jpg"
+ },
+ {
+  "src": "/gallery/qatari-gold-and-pearl-hair-ornaments.jpg",
+  "cat": "earring",
+  "gulf": true,
+  "title": "Qatari gold and pearl hair ornaments",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_gioielleria_femminile_tradizionale,_xx_secolo,_parure_con_perle_01.jpg"
+ },
+ {
+  "src": "/gallery/qatari-bridal-gold-multi-strand-necklace.jpg",
+  "cat": "necklace",
+  "gulf": true,
+  "title": "Qatari bridal gold multi-strand necklace",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_gioielleria_femminile_tradizionale_da_sposa,_xx_secolo,_collana_01.jpg"
+ },
+ {
+  "src": "/gallery/qatari-gold-jhumka-earrings-with-pearls.jpg",
+  "cat": "earring",
+  "gulf": true,
+  "title": "Qatari gold jhumka earrings with pearls",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_gioielleria_femminile_tradizionale_da_sposa,_xx_secolo,_orecchini_03.jpg"
+ },
+ {
+  "src": "/gallery/qatari-bridal-gold-head-ornament-with-medallion.jpg",
+  "cat": "pendant",
+  "gulf": true,
+  "title": "Qatari bridal gold head ornament with medallion",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_oreficeria_tradizionale_festiva_da_sposa,_xx_secolo,_bracciale-armilla_khaff.jpg"
+ },
+ {
+  "src": "/gallery/qatari-bridal-gold-bangle-with-studded-bosses.jpg",
+  "cat": "bangle",
+  "gulf": true,
+  "title": "Qatari bridal gold bangle with studded bosses",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_oreficeria_tradizionale_festiva_da_sposa,_xx_secolo,_bracciale_khoos_01.jpg"
+ },
+ {
+  "src": "/gallery/gulf-gold-and-pearl-chandelier-earrings.jpg",
+  "cat": "earring",
+  "gulf": true,
+  "title": "Gulf gold and pearl chandelier earrings",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_oreficeria_tradizionale_festiva_da_sposa,_xx_secolo,_orecchini_kawashi_01.jpg"
+ },
+ {
+  "src": "/gallery/qatari-bridal-gold-chest-ornament-hundreds-of-ha.jpg",
+  "cat": "necklace",
+  "gulf": true,
+  "title": "Qatari bridal gold chest ornament, hundreds of hand-linked pieces",
+  "license": "CC BY-SA 4.0",
+  "artist": "Francesco Bini",
+  "page": "https://commons.wikimedia.org/wiki/File:Qatar,_oreficeria_tradizionale_festiva_da_sposa,_xx_secolo,_pettorale.jpg"
+ },
+ {
+  "src": "/gallery/gold-filigree-pendant-above-the-dubai-creek-duba.jpg",
+  "cat": "bridal",
+  "gulf": true,
+  "title": "Gold filigree pendant above the Dubai Creek, Dubai Gold District",
+  "license": "CC BY-SA 4.0",
+  "artist": "AbhijithPC1",
+  "page": "https://commons.wikimedia.org/wiki/File:Dubai_Gold_District_KV_01_-_River.jpg"
+ },
+ {
   "src": "/gallery/diamond-engagement-ring-platinum-dr101-handstill4-.jpg",
   "cat": "ring",
   "title": "Diamond engagement ring platinum dr101 handstill4 1300",
@@ -85,7 +193,8 @@
   "title": "Arabesque - gold and kyanite earrings, cropped",
   "license": "CC BY 4.0",
   "artist": "W.carter",
-  "page": "https://commons.wikimedia.org/wiki/File:Arabesque_-_gold_and_kyanite_earrings,_cropped.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Arabesque_-_gold_and_kyanite_earrings,_cropped.jpg",
+  "gulf": true
  },
  {
   "src": "/gallery/earrings-1.jpg",
@@ -157,7 +266,8 @@
   "title": "Gold Souk UAE",
   "license": "CC BY 2.0",
   "artist": "MrT HK",
-  "page": "https://commons.wikimedia.org/wiki/File:Gold_Souk_UAE.jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Gold_Souk_UAE.jpg",
+  "gulf": true
  },
  {
   "src": "/gallery/joyas-de-oro-bazar-de-dubai-2011.jpg",
@@ -165,6 +275,7 @@
   "title": "Joyas de oro-bazar de dubai-2011",
   "license": "CC BY-SA 3.0",
   "artist": "Alberto-g-rovi",
-  "page": "https://commons.wikimedia.org/wiki/File:Joyas_de_oro-bazar_de_dubai-2011.JPG"
+  "page": "https://commons.wikimedia.org/wiki/File:Joyas_de_oro-bazar_de_dubai-2011.JPG",
+  "gulf": true
  }
 ]

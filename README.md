@@ -113,7 +113,7 @@ Razorpay webhook URL: `https://<api-host>/api/payments/webhook`, event `payment.
 
 ## Photos and video
 
-- `web/public/gallery/` + `web/lib/gallery.json`: 21 openly licensed photographs from Wikimedia Commons (CC0 / public domain / CC BY / CC BY-SA) shown on `/shop` with the artist and licence under each image, as the licences require. They are inspiration, not Fringlale products. Do not remove the captions. No photos with identifiable people are used.
+- `web/public/gallery/` + `web/lib/gallery.json`: 33 openly licensed photographs (12 of them Dubai & Gulf gold jewellery, the default tab) from Wikimedia Commons (CC0 / public domain / CC BY / CC BY-SA) shown on `/shop` with the artist and licence under each image, as the licences require. They are inspiration, not Fringlale products. Do not remove the captions. No photos with identifiable people are used.
 - `web/public/video/brand-film.mp4` is your film (with sound) and `brand-film-poster.jpg` its still. It is not currently placed on any page.
 
 ## Motion layer

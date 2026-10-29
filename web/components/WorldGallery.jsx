@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import items from '@/lib/gallery.json';
 
-const CATS = [['all', 'All'], ['ring', 'Rings'], ['necklace', 'Necklaces'], ['earring', 'Earrings'], ['bangle', 'Bracelets'], ['pendant', 'Pendants'], ['bridal', 'Gold markets']];
+const CATS = [['all', 'All'], ['gulf', 'Dubai & Gulf'], ['ring', 'Rings'], ['necklace', 'Necklaces'], ['earring', 'Earrings'], ['bangle', 'Bracelets'], ['pendant', 'Pendants'], ['bridal', 'Gold markets']];
 
 /** Real photographs of jewellery from around the world, all openly licensed (Wikimedia Commons). Credit and licence shown with every image. */
 export default function WorldGallery() {
-  const [cat, setCat] = useState('all');
+  const [cat, setCat] = useState('gulf');
   const [open, setOpen] = useState(null);
   useEffect(() => {
     if (!open) return;
@@ -17,13 +17,13 @@ export default function WorldGallery() {
     window.addEventListener('keydown', onKey);
     return () => { document.body.style.overflow = prev; window.removeEventListener('keydown', onKey); };
   }, [open]);
-  const list = items.filter((i) => cat === 'all' || i.cat === cat);
+  const list = items.filter((i) => cat === 'all' || (cat === 'gulf' ? i.gulf : i.cat === cat));
   return (
     <section className="maroon-band py-20" aria-label="Jewellery from around the world">
       <div className="mx-auto max-w-7xl px-4">
         <p className="mono">Inspiration</p>
         <h2 className="mt-2 text-4xl md:text-5xl">Jewellery from <span className="gold-text">around the world</span></h2>
-        <p className="mt-3 max-w-2xl text-white/70">Real photographs — from Indian kundan and Victorian enamel to Dubai’s gold souk and modern diamond work. They are here for inspiration: these are not Fringlale products. Bring any of them to a designer and we’ll make your own version.</p>
+        <p className="mt-3 max-w-2xl text-white/70">Real photographs — from Dubai’s gold souk and Qatari bridal gold to Indian kundan and Victorian enamel. They are here for inspiration: these are not Fringlale products. Bring any of them to a designer and we’ll make your own version.</p>
         <div className="scroll-x mt-8 flex gap-2 overflow-x-auto">{CATS.map(([k, l]) => <button key={k} onClick={() => setCat(k)} aria-pressed={cat === k} className={`shrink-0 border px-4 py-2 mono ${cat === k ? 'border-gold bg-gold text-[#260A12]' : 'border-white/25 text-white/75 hover:border-gold'}`}>{l}</button>)}</div>
         <div className="mt-8 gap-4 [column-fill:_balance] sm:columns-2 lg:columns-3">
           {list.map((i) => (
