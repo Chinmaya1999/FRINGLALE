@@ -91,7 +91,8 @@ jobs:
           echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" > .env
           echo "TAG=${{ github.sha }}" >> .env
           echo '${{ secrets.DOCKERHUB_TOKEN }}' | docker login -u '${{ secrets.DOCKERHUB_USERNAME }}' --password-stdin
-          docker compose pull
+          # Docker Hub occasionally answers 5xx; retry before giving up
+          for i in 1 2 3 4 5; do docker compose pull && break; [ "$i" = 5 ] && exit 1; echo "pull failed, retry $i"; sleep $((i * 10)); done
           docker compose up -d --remove-orphans
           docker image prune -f
           REMOTE
